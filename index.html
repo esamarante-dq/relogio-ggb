@@ -1,32 +1,35 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <title>GeoGebra</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Relógio</title>
 
-        iframe {
-            display: block;      /* remove margens invisíveis */
-            width: 100vw;        /* força largura total real */
-            height: 100vh;       /* altura total */
-            border: none;
-        }
-    </style>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: sans-serif;
+    }
+
+    /* Caixa do applet (ajuste se quiser) */
+    .applet {
+      width: 1400px;   /* >= 1354px (largura observada) */
+      height: 650px;   /* margem acima de 561px (altura observada) */
+      border: 0;
+      display: block;
+      max-width: 100%;
+    }
+  </style>
 </head>
+
 <body>
-
-<iframe
-  src="https://www.geogebra.org/material/iframe/id/skh54tfp?embed=true&showMenuBar=false&showToolBar=false&showAlgebraInput=false&showResetIcon=false"
-  allowfullscreen>
-</iframe>
-
+  <iframe
+    class="applet"
+    src="https://www.geogebra.org/material/iframe/id/skh54tfp?embed=true&showMenuBar=false&showToolBar=false&showAlgebraInput=false&showResetIcon=false"
+    allowfullscreen
+  ></iframe>
 </body>
 </html>
+
 
