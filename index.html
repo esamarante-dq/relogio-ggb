@@ -10,6 +10,7 @@
             padding: 0;
             height: 100%;
             overflow: hidden;
+            background: white;
         }
         
         h1 {
@@ -28,7 +29,8 @@
         .applet-container {
             width: 100%;
             height: calc(100vh - 60px);
-            background: white;
+            position: relative;
+            overflow: hidden;
         }
         
         iframe {
@@ -36,15 +38,42 @@
             height: 100%;
             border: none;
             display: block;
+            transform-origin: 0 0;
+        }
+        
+        /* Controles para ajustar o zoom do applet se necessário */
+        .controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 5px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+        
+        .controls button {
+            margin: 0 2px;
+            padding: 3px 8px;
+            font-size: 12px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
     <h1>Relógio Teste/Exame</h1>
-    <div class="applet-container">
-        <!-- URL para incorporação limpa do applet GeoGebra -->
+    <div class="applet-container" id="container">
+        <div class="controls" id="controls" style="display: none;">
+            <button id="zoom-in">+</button>
+            <button id="zoom-out">-</button>
+            <button id="reset-zoom">100%</button>
+        </div>
+        
+        <!-- Applet GeoGebra com parâmetros para ajustar visualização -->
         <iframe 
-            src="https://www.geogebra.org/material/iframe/id/d6sthte6"
+            id="geogebra-applet"
+            src="https://www.geogebra.org/material/iframe/id/d6sthte6/width/100%/height/100%"
             frameborder="0"
             scrolling="no"
             allowfullscreen
@@ -54,26 +83,71 @@
     </div>
     
     <script>
-        // Redirecionar se a URL padrão não funcionar
-        document.addEventListener('DOMContentLoaded', function() {
-            const iframe = document.querySelector('iframe');
+        let scale = 1;
+        const iframe = document.getElementById('geogebra-applet');
+        const controls = document.getElementById('controls');
+        const container = document.getElementById('container');
+        
+        // Mostrar controles quando o applet carregar
+        iframe.addEventListener('load', function() {
+            console.log('Applet GeoGebra carregado');
             
-            // Monitorar se o iframe falha ao carregar
-            iframe.addEventListener('load', function() {
-                // Verificar se o conteúdo carregado é o applet ou página de erro
-                try {
-                    // Esta verificação é limitada por políticas de mesma origem
-                    console.log('Applet GeoGebra carregado');
-                } catch(e) {
-                    console.log('Applet carregado, mas acesso ao conteúdo restrito');
+            // Verificar se o conteúdo está cortado após carregamento
+            setTimeout(checkIframeContent, 1000);
+        });
+        
+        // Verificar se o conteúdo do iframe está cortado
+        function checkIframeContent() {
+            // Tentar acessar o documento do iframe (pode ser bloqueado por CORS)
+            try {
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                const iframeBody = iframeDoc.body;
+                
+                // Verificar se há barras de rolagem ou conteúdo cortado
+                if (iframeBody.scrollWidth > iframeBody.clientWidth) {
+                    console.log('Conteúdo cortado horizontalmente. Ativando controles.');
+                    controls.style.display = 'block';
+                    
+                    // Ajustar zoom inicial
+                    adjustZoom(0.9);
                 }
-            });
-            
-            iframe.addEventListener('error', function() {
-                console.log('Erro ao carregar, tentando URL alternativa...');
-                // Tentar URL alternativa
-                iframe.src = "https://www.geogebra.org/classic/embed?id=d6sthte6";
-            });
+            } catch (e) {
+                // CORS bloqueia acesso ao conteúdo do iframe
+                console.log('Não é possível acessar conteúdo do iframe devido a restrições de segurança.');
+                
+                // Mostrar controles por padrão para permitir ajustes
+                controls.style.display = 'block';
+            }
+        }
+        
+        // Função para ajustar o zoom do iframe
+        function adjustZoom(factor) {
+            scale *= factor;
+            iframe.style.transform = `scale(${scale})`;
+            iframe.style.width = `${100/scale}%`;
+            iframe.style.height = `${100/scale}%`;
+        }
+        
+        // Event listeners para controles de zoom
+        document.getElementById('zoom-in').addEventListener('click', () => adjustZoom(1.1));
+        document.getElementById('zoom-out').addEventListener('click', () => adjustZoom(0.9));
+        document.getElementById('reset-zoom').addEventListener('click', () => {
+            scale = 1;
+            iframe.style.transform = 'scale(1)';
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+        });
+        
+        // Tentar URL alternativa se a principal falhar
+        iframe.addEventListener('error', function() {
+            console.log('Erro ao carregar, tentando URL alternativa...');
+            iframe.src = "https://www.geogebra.org/classic/embed?id=d6sthte6";
+        });
+        
+        // Redimensionar iframe quando a janela for redimensionada
+        window.addEventListener('resize', function() {
+            // Reaplicar transformação
+            iframe.style.transform = `scale(${scale})`;
         });
     </script>
 </body>
