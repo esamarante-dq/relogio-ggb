@@ -15,27 +15,30 @@
             align-items: center;
             min-height: 100vh;
             background-color: #f5f5f5;
+            overflow: hidden; /* Previne scroll na página inteira */
         }
         h1 {
             color: #333;
-            margin: 15px 0;
+            margin: 10px 0;
             text-align: center;
+            flex-shrink: 0; /* Não encolhe */
         }
         #ggb-container {
             width: 95vw;
-            height: 85vh;
+            height: calc(95vh - 100px); /* Ajusta altura considerando título e info */
             max-width: 1200px;
-            max-height: 800px;
             background-color: white;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             position: relative;
+            overflow: hidden; /* Garante que nada dentro do container cause scroll */
         }
         .info {
-            margin: 15px 0;
+            margin: 10px 0;
             text-align: center;
             color: #666;
             font-size: 0.9em;
             max-width: 800px;
+            flex-shrink: 0; /* Não encolhe */
         }
         .author {
             font-style: italic;
@@ -44,7 +47,7 @@
         @media (max-width: 768px) {
             #ggb-container {
                 width: 98vw;
-                height: 70vh;
+                height: calc(98vh - 100px);
             }
         }
     </style>
@@ -71,16 +74,17 @@
             "showResetIcon": false,
             "showFullscreenButton": true,
             "enableLabelDrags": true,
-            "enableShiftDragZoom": false,      /* Desativa zoom com Shift+arrastar */
+            "enableShiftDragZoom": false,
             "enableRightClick": true,
             "errorDialogsActive": false,
             "useBrowserForJS": false,
             "allowStyleBar": false,
             "showKeyboard": false,
-            "allowUpscale": false,             /* Previne zoom com roda do rato */
-            "scaleContainerClass": "none",     /* Adicional para prevenir zoom */
+            "allowUpscale": false,
+            "scale": 1.0, /* Força escala 1:1 */
             "material_id": "d6sthte6",
-            "borderColor": "transparent"
+            "borderColor": "transparent",
+            "autoHeight": false /* Importante: não ajusta altura automaticamente */
         };
         
         var ggbApp = new GGBApplet(params, true);
@@ -88,12 +92,14 @@
         window.addEventListener("load", function() {
             ggbApp.inject("ggb-container");
             
-            // Adiciona prevenção adicional para a roda do rato
-            var container = document.getElementById('ggb-container');
-            if (container) {
-                container.addEventListener('wheel', function(e) {
-                    e.preventDefault();
-                }, { passive: false });
+            // Remove a prevenção de roda do rato que estava a causar problemas
+            // O zoom já está desativado via allowUpscale: false
+        });
+        
+        // Adicional: redimensiona o applet quando a janela muda de tamanho
+        window.addEventListener("resize", function() {
+            if (window.ggbApplet) {
+                window.ggbApplet.recalculate();
             }
         });
     </script>
