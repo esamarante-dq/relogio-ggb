@@ -1,18 +1,77 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <title>Applet GeoGebra</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relógio Teste | Exame - GeoGebra Applet</title>
+    <script src="https://www.geogebra.org/apps/deployggb.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        #ggb-container {
+            width: 100%;
+            max-width: 800px;
+            height: 600px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: white;
+        }
+        .info {
+            margin-top: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+            max-width: 800px;
+        }
+        .author {
+            font-style: italic;
+            margin-top: 5px;
+        }
+    </style>
 </head>
 <body>
+    <h1>Relógio Teste | Exame</h1>
+    
+    <div id="ggb-container"></div>
+    
+    <div class="info">
+        <p>Applet GeoGebra incorporado da página: <a href="https://www.geogebra.org/m/skh54tfp" target="_blank">https://www.geogebra.org/m/skh54tfp</a></p>
+        <p class="author">Autor: DQ | Escola Secundária Amarante</p>
+    </div>
 
-<iframe
-  src="https://www.geogebra.org/material/iframe/id/skh54tfp?embed=true&showMenuBar=false&showToolBar=false&showAlgebraInput=false&showResetIcon=false"
-  width="1500"
-  height="700"
-  style="border:0;">
-</iframe>
-
+    <script>
+        var params = {
+            "appName": "classic",
+            "width": "100%",
+            "height": "100%",
+            "showToolBar": true,
+            "showAlgebraInput": true,
+            "showMenuBar": true,
+            "material_id": "skh54tfp",
+            "borderColor": "transparent"
+        };
+        
+        var ggbApp = new GGBApplet(params, true);
+        
+        window.addEventListener("load", function() {
+            ggbApp.inject("ggb-container");
+        });
+    </script>
 </body>
 </html>
