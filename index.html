@@ -3,234 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Relógio Teste | Exame - GeoGebra Applet</title>
+    <title>Relógio Teste/Exame</title>
     <style>
-        * {
+        body, html {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: #f5f7fa;
-            color: #333;
-            line-height: 1.6;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #e0e0e0;
+            height: 100%;
+            overflow: hidden;
         }
         
         h1 {
-            color: #2c3e50;
-            margin-bottom: 10px;
-            font-size: 2.2rem;
-        }
-        
-        .subtitle {
-            color: #7f8c8d;
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-        }
-        
-        .container {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-        
-        .applet-container {
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            overflow: hidden;
-            padding: 20px;
-        }
-        
-        .applet-title {
-            color: #2980b9;
-            margin-bottom: 15px;
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .applet-title i {
-            font-size: 1.8rem;
-        }
-        
-        .geogebra-frame {
-            width: 100%;
-            height: 600px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        
-        .instructions {
-            background-color: #f8f9fa;
-            border-left: 4px solid #3498db;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 20px;
-        }
-        
-        .instructions h3 {
-            color: #2c3e50;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .instructions ul {
-            padding-left: 20px;
-            margin-bottom: 15px;
-        }
-        
-        .instructions li {
-            margin-bottom: 8px;
-        }
-        
-        .info-box {
-            background-color: #e8f4fc;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 25px;
-        }
-        
-        .info-box h4 {
-            color: #2980b9;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        footer {
+            margin: 0;
+            padding: 10px;
             text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid #e0e0e0;
-            color: #7f8c8d;
-            font-size: 0.9rem;
+            font-family: Arial, sans-serif;
+            font-size: 22px;
+            background-color: #f0f0f0;
+            border-bottom: 1px solid #ccc;
         }
         
-        .logo {
-            color: #2980b9;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-        
-        @media (max-width: 768px) {
-            .geogebra-frame {
-                height: 450px;
-            }
-            
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            body {
-                padding: 15px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .geogebra-frame {
-                height: 350px;
-            }
-            
-            h1 {
-                font-size: 1.5rem;
-            }
-            
-            .applet-container {
-                padding: 15px;
-            }
+        #geogebra-app {
+            width: 100%;
+            height: calc(100% - 50px); /* Altura total menos a altura do título */
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <header>
-        <h1><i class="fas fa-chalkboard-teacher"></i> Applet GeoGebra - Relógio Teste</h1>
-        <p class="subtitle">Material educativo interativo para exploração de conceitos de medição de tempo</p>
-        <p>Desenvolvido por <strong>DQ | Escola Secundária Amarante</strong></p>
-    </header>
-    
-    <div class="container">
-        <section class="applet-container">
-            <h2 class="applet-title"><i class="fas fa-clock"></i> Relógio Teste | Exame</h2>
-            <p>Este applet GeoGebra permite explorar conceitos relacionados com medição de tempo e ângulos num relógio. Utilize os controles interativos para modificar parâmetros e observar os resultados.</p>
-            
-            <!-- Applet GeoGebra incorporado -->
-            <iframe 
-                class="geogebra-frame"
-                src="https://www.geogebra.org/material/iframe/id/d6sthte6"
-                allowfullscreen
-                scrolling="no"
-                allow="autoplay; fullscreen"
-                title="Relógio Teste | Exame - GeoGebra Applet">
-            </iframe>
-            
-            <div class="instructions">
-                <h3><i class="fas fa-info-circle"></i> Como utilizar este applet:</h3>
-                <ul>
-                    <li>Use os controles deslizantes para ajustar as horas e minutos</li>
-                    <li>Clique e arraste elementos interativos para explorar diferentes configurações</li>
-                    <li>Observe as mudanças nos ângulos e relações temporais</li>
-                    <li>Utilize as ferramentas de zoom se disponíveis no applet</li>
-                    <li>Reinicie a aplicação usando o botão no canto superior direito se necessário</li>
-                </ul>
-                <p><strong>Nota:</strong> Este applet requer uma conexão à internet para carregar completamente.</p>
-            </div>
-        </section>
-        
-        <section class="info-box">
-            <h4><i class="fas fa-lightbulb"></i> Sobre este material educativo</h4>
-            <p>Este recurso educativo foi criado com GeoGebra, uma plataforma dinâmica de matemática que combina geometria, álgebra e cálculo. O applet "Relógio Teste | Exame" é particularmente útil para:</p>
-            <ul>
-                <li>Estudar a relação entre ângulos e medição de tempo</li>
-                <li>Explorar conceitos de frações e divisão do círculo</li>
-                <li>Preparar para exames com problemas práticos interativos</li>
-                <li>Visualizar conceitos abstratos de forma concreta</li>
-            </ul>
-        </section>
-    </div>
-    
-    <footer>
-        <p>Applet GeoGebra incorporado de <span class="logo">GeoGebra</span> | Material ID: d6sthte6</p>
-        <p>Página criada para fins educativos | <i class="far fa-calendar-alt"></i> 2025</p>
-    </footer>
-    
-    <script>
-        // Adicionar interatividade básica
-        document.addEventListener('DOMContentLoaded', function() {
-            // Adicionar efeito de carregamento ao iframe
-            const iframe = document.querySelector('.geogebra-frame');
-            
-            iframe.addEventListener('load', function() {
-                console.log('Applet GeoGebra carregado com sucesso!');
-            });
-            
-            // Adicionar mensagem de ajuda interativa
-            const infoBox = document.querySelector('.info-box');
-            infoBox.addEventListener('click', function() {
-                this.style.transform = 'scale(1.01)';
-                setTimeout(() => {
-                    this.style.transform = 'scale(1)';
-                }, 200);
-            });
-        });
-    </script>
+    <h1>Relógio Teste/Exame</h1>
+    <iframe 
+        id="geogebra-app"
+        src="https://www.geogebra.org/material/iframe/id/d6sthte6"
+        frameborder="0"
+        allowfullscreen
+        scrolling="no"
+        allow="autoplay; fullscreen"
+        title="Relógio Teste/Exame">
+    </iframe>
 </body>
 </html>
