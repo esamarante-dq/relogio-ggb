@@ -24,13 +24,10 @@
             flex-shrink: 0; /* Não encolhe */
         }
         #ggb-container {
-            width: 95vw;
-            height: calc(95vh - 100px); /* Ajusta altura considerando título e info */
-            max-width: 1200px;
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: relative;
-            overflow: hidden; /* Garante que nada dentro do container cause scroll */
+    width: 100%;
+    max-width: 1200px;
+    height: calc(100vw * 0.5625); /* 16:9 ratio */
+    max-height: 675px; /* 1200 * 0.5625 */
         }
         .info {
             margin: 10px 0;
