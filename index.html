@@ -2,34 +2,71 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Relógio</title>
 
   <style>
     body {
       margin: 0;
-      padding: 20px;
+      padding: 16px;
       font-family: sans-serif;
+      overflow: hidden; /* evita scroll; tudo tem de caber */
     }
 
-    /* Caixa do applet (ajuste se quiser) */
-    .applet {
-      width: 1400px;   /* >= 1354px (largura observada) */
-      height: 650px;   /* margem acima de 561px (altura observada) */
+    /* Área disponível */
+    #stage {
+      width: calc(100vw - 32px);
+      height: calc(100vh - 32px);
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+
+    /* Conteúdo com tamanho "base" do applet */
+    #wrap {
+      width: 1354px;   /* use o valor que mediu (style width do canvas) */
+      height: 561px;   /* use o valor que mediu (style height do canvas) */
+      transform-origin: top left;
+    }
+
+    iframe {
+      width: 1354px;
+      height: 561px;
       border: 0;
       display: block;
-      max-width: 100%;
     }
   </style>
 </head>
 
 <body>
-  <iframe
-    class="applet"
-    src="https://www.geogebra.org/material/iframe/id/skh54tfp?embed=true&showMenuBar=false&showToolBar=false&showAlgebraInput=false&showResetIcon=false"
-    allowfullscreen
-  ></iframe>
+  <div id="stage">
+    <div id="wrap">
+      <iframe
+        id="ggb"
+        src="https://www.geogebra.org/material/iframe/id/skh54tfp?embed=true&showMenuBar=false&showToolBar=false&showAlgebraInput=false&showResetIcon=false">
+      </iframe>
+    </div>
+  </div>
+
+  <script>
+    const BASE_W = 1354;
+    const BASE_H = 561;
+
+    function fit() {
+      const stage = document.getElementById("stage");
+      const wrap = document.getElementById("wrap");
+
+      const availW = stage.clientWidth;
+      const availH = stage.clientHeight;
+
+      const scale = Math.min(availW / BASE_W, availH / BASE_H, 1);
+
+      wrap.style.transform = `scale(${scale})`;
+    }
+
+    window.addEventListener("resize", fit);
+    window.addEventListener("load", fit);
+  </script>
 </body>
 </html>
-
 
