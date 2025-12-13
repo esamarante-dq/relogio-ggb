@@ -2,18 +2,20 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <title>Relógio</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <title>GeoGebra</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <style>
-        body {
+        html, body {
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            width: 100%;
+            height: 100%;
         }
 
         iframe {
-            width: 1800px;
-            height: 600px;
+            display: block;      /* remove margens invisíveis */
+            width: 100vw;        /* força largura total real */
+            height: 100vh;       /* altura total */
             border: none;
         }
     </style>
@@ -21,8 +23,10 @@
 <body>
 
 <iframe
-    src="https://www.geogebra.org/material/iframe/id/skh54tfp?embed=true&showMenuBar=false&showToolBar=false&showAlgebraInput=false&showResetIcon=false">
+  src="https://www.geogebra.org/material/iframe/id/skh54tfp?embed=true&showMenuBar=false&showToolBar=false&showAlgebraInput=false&showResetIcon=false"
+  allowfullscreen>
 </iframe>
 
 </body>
 </html>
+
