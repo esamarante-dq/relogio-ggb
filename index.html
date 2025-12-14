@@ -13,9 +13,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
             min-height: 100vh;
-            overflow: hidden; /* Remove barras de rolagem */
+            overflow: hidden;
         }
         
         h1 {
@@ -24,67 +23,194 @@
             text-align: center;
             font-size: 24px;
             z-index: 10;
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(255, 255, 255, 0.9);
             padding: 10px 20px;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+            top: 10px;
         }
         
-        .geogebra-container {
-            width: 100vw; /* Largura total da janela */
-            height: 90vh; /* Altura quase total da janela */
+        .geogebra-wrapper {
+            width: 100%;
+            height: calc(100vh - 80px);
             display: flex;
             justify-content: center;
             align-items: center;
-            transform: scale(0.85); /* Zoom out para 85% */
+            overflow: auto;
+            padding: 10px;
+        }
+        
+        .geogebra-container {
+            transform: scale(0.7); /* Zoom out inicial */
             transform-origin: center center;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            background: white;
+            border-radius: 5px;
         }
         
         .geogebra-applet {
-            width: 100%;
-            height: 100%;
+            width: 1200px; /* Largura fixa maior que o normal */
+            height: 800px; /* Altura fixa maior que o normal */
             border: none;
-            background: white;
+            display: block;
         }
         
-        /* Para telas muito pequenas, ajustar mais */
+        .zoom-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            display: flex;
+            gap: 10px;
+        }
+        
+        .zoom-btn {
+            background: #4a6fa5;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        
+        .zoom-btn:hover {
+            background: #365d94;
+        }
+        
+        .zoom-level {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            min-width: 60px;
+            font-size: 16px;
+            color: #333;
+        }
+        
+        @media (max-width: 1400px) {
+            .geogebra-container {
+                transform: scale(0.6);
+            }
+        }
+        
+        @media (max-width: 1200px) {
+            .geogebra-container {
+                transform: scale(0.5);
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .geogebra-container {
+                transform: scale(0.45);
+            }
+        }
+        
         @media (max-width: 768px) {
             .geogebra-container {
-                transform: scale(0.75); /* Mais zoom out para telas menores */
+                transform: scale(0.4);
             }
             
             h1 {
                 font-size: 20px;
                 padding: 8px 15px;
-                margin: 10px 0;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .geogebra-container {
-                transform: scale(0.65); /* Ainda mais zoom out para telas muito pequenas */
             }
             
-            h1 {
-                font-size: 18px;
+            .geogebra-applet {
+                width: 1000px;
+                height: 700px;
             }
         }
         
-        /* Para telas muito grandes, ajustar menos */
-        @media (min-width: 1600px) {
+        @media (max-width: 576px) {
             .geogebra-container {
-                transform: scale(0.9); /* Menos zoom out para telas grandes */
+                transform: scale(0.35);
+            }
+            
+            .geogebra-applet {
+                width: 900px;
+                height: 650px;
             }
         }
     </style>
 </head>
 <body>
     <h1>Relógio Teste/Exame</h1>
-    <div class="geogebra-container">
-        <iframe class="geogebra-applet" 
-                src="https://www.geogebra.org/material/iframe/id/dmpw2sun" 
-                title="GeoGebra Applet">
-        </iframe>
+    
+    <div class="geogebra-wrapper">
+        <div class="geogebra-container" id="geogebraContainer">
+            <iframe class="geogebra-applet" 
+                    src="https://www.geogebra.org/material/iframe/id/dmpw2sun" 
+                    title="GeoGebra Applet">
+            </iframe>
+        </div>
     </div>
+    
+    <div class="zoom-controls">
+        <button class="zoom-btn" id="zoomOut">-</button>
+        <div class="zoom-level" id="zoomLevel">70%</div>
+        <button class="zoom-btn" id="zoomIn">+</button>
+    </div>
+
+    <script>
+        let currentScale = 0.7;
+        const container = document.getElementById('geogebraContainer');
+        const zoomLevel = document.getElementById('zoomLevel');
+        const zoomInBtn = document.getElementById('zoomIn');
+        const zoomOutBtn = document.getElementById('zoomOut');
+        
+        function updateZoom() {
+            container.style.transform = `scale(${currentScale})`;
+            zoomLevel.textContent = `${Math.round(currentScale * 100)}%`;
+            
+            // Salvar zoom no localStorage
+            localStorage.setItem('geogebraZoom', currentScale);
+        }
+        
+        zoomInBtn.addEventListener('click', () => {
+            if (currentScale < 1.2) {
+                currentScale += 0.05;
+                updateZoom();
+            }
+        });
+        
+        zoomOutBtn.addEventListener('click', () => {
+            if (currentScale > 0.3) {
+                currentScale -= 0.05;
+                updateZoom();
+            }
+        });
+        
+        // Carregar zoom salvo
+        const savedZoom = localStorage.getItem('geogebraZoom');
+        if (savedZoom) {
+            currentScale = parseFloat(savedZoom);
+            updateZoom();
+        }
+        
+        // Permitir zoom com scroll do mouse
+        container.addEventListener('wheel', (e) => {
+            if (e.ctrlKey) {
+                e.preventDefault();
+                if (e.deltaY < 0 && currentScale < 1.2) {
+                    currentScale += 0.05;
+                } else if (e.deltaY > 0 && currentScale > 0.3) {
+                    currentScale -= 0.05;
+                }
+                updateZoom();
+            }
+        }, { passive: false });
+    </script>
 </body>
 </html>
