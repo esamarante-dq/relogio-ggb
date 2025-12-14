@@ -23,12 +23,14 @@
         }
 
         .applet-container {
-            width: 100vw;                 /* sugestão 2 */
-            height: calc(100vh - 60px);   /* ajustado à altura do título */
+            width: 1024px;
+            max-width: 100vw;              /* segurança em ecrãs menores */
+            height: calc(100vh - 60px);    /* espaço para o título */
             border: none;
             background: white;
-            box-shadow: none;             /* sugestão 1 */
+            box-shadow: none;
         }
+
     </style>
 </head>
 <body>
