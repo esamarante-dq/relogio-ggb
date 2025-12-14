@@ -8,34 +8,36 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0;
+            background-color: white; /* sugestão 1 */
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
         }
-        
+
         h1 {
-            margin: 10px 0;
-            padding: 10px;
+            margin: 0;
+            padding: 10px 0;
             text-align: center;
+            font-size: 1.5rem;
         }
-        
+
         .applet-container {
-            width: 95vw;
-            height: 85vh;
+            width: 100vw;                 /* sugestão 2 */
+            height: calc(100vh - 60px);   /* ajustado à altura do título */
             border: none;
             background: white;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: none;             /* sugestão 1 */
         }
     </style>
 </head>
 <body>
     <h1>Relógio Teste/Exame</h1>
-    
-    <iframe class="applet-container" 
+
+    <iframe
+        class="applet-container"
         src="https://www.geogebra.org/material/iframe/id/dmpw2sun/width/1500/height/600/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/false/ctl/true"
-        title="GeoGebra Applet"
+        title="Relógio GeoGebra"
         allowfullscreen>
     </iframe>
 </body>
