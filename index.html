@@ -15,30 +15,76 @@
             align-items: center;
             justify-content: flex-start;
             min-height: 100vh;
+            overflow: hidden; /* Remove barras de rolagem */
         }
         
         h1 {
-            margin: 20px 0;
+            margin: 15px 0;
             color: #333;
             text-align: center;
+            font-size: 24px;
+            z-index: 10;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .geogebra-container {
+            width: 100vw; /* Largura total da janela */
+            height: 90vh; /* Altura quase total da janela */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: scale(0.85); /* Zoom out para 85% */
+            transform-origin: center center;
         }
         
         .geogebra-applet {
             width: 100%;
-            max-width: 1200px;
-            height: 85vh;
-            min-height: 600px;
+            height: 100%;
             border: none;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             background: white;
+        }
+        
+        /* Para telas muito pequenas, ajustar mais */
+        @media (max-width: 768px) {
+            .geogebra-container {
+                transform: scale(0.75); /* Mais zoom out para telas menores */
+            }
+            
+            h1 {
+                font-size: 20px;
+                padding: 8px 15px;
+                margin: 10px 0;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .geogebra-container {
+                transform: scale(0.65); /* Ainda mais zoom out para telas muito pequenas */
+            }
+            
+            h1 {
+                font-size: 18px;
+            }
+        }
+        
+        /* Para telas muito grandes, ajustar menos */
+        @media (min-width: 1600px) {
+            .geogebra-container {
+                transform: scale(0.9); /* Menos zoom out para telas grandes */
+            }
         }
     </style>
 </head>
 <body>
     <h1>Relógio Teste/Exame</h1>
-    <iframe class="geogebra-applet" 
-            src="https://www.geogebra.org/material/iframe/id/dmpw2sun" 
-            title="GeoGebra Applet">
-    </iframe>
+    <div class="geogebra-container">
+        <iframe class="geogebra-applet" 
+                src="https://www.geogebra.org/material/iframe/id/dmpw2sun" 
+                title="GeoGebra Applet">
+        </iframe>
+    </div>
 </body>
 </html>
